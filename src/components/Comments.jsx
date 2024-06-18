@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getComments } from "../api";
-import moment from "moment";
+import CommentCard from "./CommentCard";
 
 
 const Comments = (props) =>{
@@ -22,12 +22,8 @@ const Comments = (props) =>{
             <h4>Comments section</h4>
                 {comments.map((comment) => {
                   
-                    return <li key={comment.comment_id} className="commentslist">
-                        <p>Comment Id:{comment.comment_id}</p>
-                        <p>Author:{comment.author}</p>
-                        <p>Body:{comment.body}</p>
-                        <p>Created at:{moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}</p>
-                    </li>})} </section>}
+                    return ( <CommentCard key={comment.comment_id} comment={comment}/>);
+  })} </section>}
 }
 
 export default Comments;
