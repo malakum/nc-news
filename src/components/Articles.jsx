@@ -31,7 +31,7 @@ const Articles = () => {
         <section className='articles'>
              <h3>Articles</h3> 
              {articles.map((article) => {
-                   return ( <ArticleCard key={article.article_id} article={article} />);
+                   return ( <ArticleCard key={article.article_id} article={article}/>);
                                   
             })}
         

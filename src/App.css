@@ -44,14 +44,16 @@
 .articles {
   border : 1px solid black;
   background-color: aquamarine;
+  colour: black;
   width: 500px;
   
 }
 
 .art_cards_main {
   background-color: azure;
+  color: black;
   width: 498px;
-  height: 300px;
+  height: 100%;
   border: 1px solid black;
   margin-top: 0.75 em;
   margin-bottom: 0.75em;
@@ -60,9 +62,23 @@
 
 .header {
   background-color: aqua;
+  color:black;
   Width : 500px;
   height :100px;
   margin-bottom : 1em;
   margin-right: 1em;
   border :solid black;
 }
+
+.atticleDetail_commentsBtn {
+  color: white;
+  background-color: #01497c;
+}
+
+.commentslist {
+  border :solid green;
+  list-style-type: none;
+  padding-left: 0;
+  margin:0;
+}
+
