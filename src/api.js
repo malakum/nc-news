@@ -8,3 +8,9 @@ export const getArticles = ( ) => {
         return res.data;
     })
 }
+export const getArticleById = (article_id) => {
+     return newsApi.get(`/articles/${article_id}`).then(res => {
+          return res.data.article;
+    })
+}
+
