@@ -25,5 +25,10 @@ export const patchArticle = (article_id, body) => {
         return res.data.article
     })
 }
+export const postComment = (article_id, newComment) => {
+    return newsApi.post(`/articles/${article_id}/comments`, newComment).then(res => {
+        return res.data.comment
+    })
+}
 
 

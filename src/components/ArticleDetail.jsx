@@ -45,10 +45,11 @@ const ArticleDetail = ( ) => {
             })
             patchArticle(article_id, updatebody)
                 .then((res) => {
-                  //  console.log(res,'<<<<vote updated ')
+                    console.log(res,'<<<<vote updated ')
                 })
                 .catch((err) => {
-                    //alert(err)
+                    alert(err);
+                   console.log(err);
               
                     setArticle((currArticle) => {
                         const updatedArticle = { ...currArticle };
@@ -81,7 +82,7 @@ const ArticleDetail = ( ) => {
                         <button onClick={() => { voteHandler(-1) }} className="votebutton" >Down
                         
                          </button >
-                        {`(${article.votes})`}
+                        {/* {`(${article.votes})`} */}
                     </div>
                                     <p> Comments count:{article.comment_count}</p>
                                     
