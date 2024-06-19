@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { getComments , postComment } from "../api";
+import { getComments , postComment , deleteComment } from "../api";
+import moment from "moment";
 import CommentCard from "./CommentCard";
 
 
 const Comments = (props) =>{
     const [comments, setComments] = useState([]);
     const [input, setInput] = useState('');
-    const [statusBase, setStatusBase] = useState("");
+    const [status, setStatusBase] = React.useState("");
    
    
     const [isLoading, setIsLoading] = useState(true);
@@ -25,8 +26,9 @@ const Comments = (props) =>{
 
     const postSubmitHandler = (evt) => {
         if (input.length === 0) {
+            alert("Nothing to post here! Please type your comment");
             console.log("Nothing to post here! Please type your comment");
-            setStatusBase({ msg: "Nothing to post here! Please type your comment", key: Math.random() });
+           // setStatusBase({ msg: "Nothing to post here! Please type your comment", key: Math.random() });
         } else {
             const newComment = {};
             newComment['author'] =  'happyamy2016';
@@ -46,13 +48,36 @@ const Comments = (props) =>{
                     return updatedArticle;
                 })
                 setInput('');
+
             })
                 .catch((err) => {
                     alert(err)
+                    setInput('');
                     console.log(err);
                     setStatusBase({ msg: { err }, key: Math.random() });
                 })
         }
+    }
+
+    const deleteHandler = (commentid) => {
+        deleteComment(commentid)
+            .then((res) => {
+                setComments((currcomments) => {
+                    const newComments = currcomments.filter((comment) => {
+                        return comment.comment_id !== commentid
+                    });
+                    return newComments;
+                })
+                props.setArticle((currArticle) => {
+                    const updatedArticle = { ...currArticle };
+                    updatedArticle['comment_count']--;
+                    return updatedArticle;
+                })
+            })
+            .catch((err) => {
+                alert(err)
+              //  setStatusBase({ msg: { err }, key: Math.random() });
+            })
     }
     
     if (isLoading) {
@@ -67,6 +92,7 @@ const Comments = (props) =>{
                     value={input}
                     placeholder='Post your comment here ......'>Post Your Comment here</textarea>
                      <button variant="contained" onClick={postSubmitHandler}>Submit</button>
+                    
                 
             </div>
     <section>
@@ -74,8 +100,22 @@ const Comments = (props) =>{
             <h4>Comments section</h4>
                 {comments.map((comment) => {
                   
-                    return ( <CommentCard key={comment.comment_id} comment={comment}/>);
+                  //   return ( <CommentCard key={comment.comment_id} comment={comment}/>);
+                    return (<li key={comment.comment_id} className="commentslist"> 
+                       <p>Comment Id:{comment.comment_id}</p>
+                         <p>Author:{comment.author}</p>
+                        <p>Body:{comment.body}</p>
+                        <p>Created at:{moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}</p>
+                        <div>
+                        <button onClick={() => { deleteHandler(comment.comment_id) }} >
+                        Delete Comment
+                      </button>
+                      {/* <p><delete /> {comment.votes}</p> */}
+                      </div>
+                     </li>)
+                   
   })} </section>
+   
   </div>)}
 }
 

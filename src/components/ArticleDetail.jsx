@@ -45,7 +45,7 @@ const ArticleDetail = ( ) => {
             })
             patchArticle(article_id, updatebody)
                 .then((res) => {
-                    console.log(res,'<<<<vote updated ')
+                 //   console.log(res,'<<<<vote updated ')
                 })
                 .catch((err) => {
                     alert(err);
@@ -73,6 +73,8 @@ const ArticleDetail = ( ) => {
              <h4>Title :{article.title}</h4>
              <p>Topic:{article.topic}</p>
                                     <p>Author: {article.author}</p>
+                                    <img src ={article.article_img_url} className="article_img">
+                                    </img>
                                     <p>Created at:{moment(article.created_at).format('MMMM Do YYYY, h:mm:ss a')}</p>
                                     <p> Votes: {article.votes}</p>
                                     <div className="article_votesBtn_div">
