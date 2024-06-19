@@ -7,6 +7,8 @@ const ArticleCard = ({article}) => {
                             <h4>Title :{article.title}</h4>
                             <p> Topic:{article.topic}</p>
                                     <p>Author: {article.author}</p>
+                                    <img src ={article.article_img_url} className="article_img">
+                                    </img>
                                     {/* <p>Created at:{article.created_at.split('T')[0]}'</p> */}
                                     <p>{moment(article.created_at).format('MMMM Do YYYY, h:mm:ss a')}</p>
                                     <p> Votes: {article.votes}</p>

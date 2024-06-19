@@ -14,7 +14,7 @@ const Articles = () => {
     useEffect(() => {
         getArticles().
             then((res) => {
-              //  console.log(res.articles.rows, '<<articles')
+            //    console.log(res.articles.rows, '<<articles')
                 setArticles(res.articles.rows);
                 setIsLoading(false);
               
