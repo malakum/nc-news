@@ -4,6 +4,7 @@ import  ArticleCard  from './ArticleCard.jsx';
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+
 import { Link } from "react-router-dom";
 
 
@@ -12,6 +13,7 @@ const Articles = () => {
     const [sortby, setSortby] = useState('created_at');
     const [isLoading, setIsLoading] = useState(true);
     let [searchParams] = useSearchParams();
+    const [error,setError] = useState(null);
 
     const topic = searchParams.get('topic');
     //console.log (topic);
@@ -30,8 +32,13 @@ const Articles = () => {
             .catch((err) => {
               //  console.log(err);
                 alert(err);
+                setError(err);
             })
     }, [topic,sortby]);
+
+    if (error){
+        return <p>Error Code={error.code} ,  Error Message={error.message}</p>;
+    };
     if (isLoading) {
         return <p>is loading</p>
     }
@@ -45,6 +52,7 @@ const Articles = () => {
                     <select onChange={(event) => { setSortby(event.target.value) }}>
                         <option value='created_at'>Article Date</option>
                         <option value='votes'>Votes</option>
+                        <option value='comment_count'>comment_count</option>
                     </select>
                 </div>
             </nav>

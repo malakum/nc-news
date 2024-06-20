@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { getComments , postComment , deleteComment } from "../api";
 import moment from "moment";
 import CommentCard from "./CommentCard";
+import { UserContext } from "../contexts/User";
 
 
 
@@ -9,6 +10,8 @@ const Comments = (props) =>{
     const [comments, setComments] = useState([]);
     const [input, setInput] = useState('');
     const [status, setStatusBase] = React.useState("");
+    const [error, setError] = useState(null);
+    const { loggedInUser, isLoggedIn } = useContext(UserContext);
  
    
     const [isLoading, setIsLoading] = useState(true);
@@ -55,6 +58,7 @@ const Comments = (props) =>{
                     alert(err)
                     setInput('');
                     console.log(err);
+                    setError(err);
                     setStatusBase({ msg: { err }, key: Math.random() });
                 })
         }
@@ -76,11 +80,15 @@ const Comments = (props) =>{
                 })
             })
             .catch((err) => {
-                alert(err)
+                alert(err);
+                setError(err);
               //  setStatusBase({ msg: { err }, key: Math.random() });
             })
     }
-    
+    if (error){
+        return <p>Error Code={error.code} ,  Error Message={error.message}</p>;
+    };
+ 
     if (isLoading) {
         return <p>is loading</p>
     }
@@ -107,12 +115,12 @@ const Comments = (props) =>{
                          <p>Author:{comment.author}</p>
                         <p>Body:{comment.body}</p>
                         <p>Created at:{moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}</p>
+                        {(comment.author === loggedInUser.username) &&
                         <div>
                         <button onClick={() => { deleteHandler(comment.comment_id) }} >
                         Delete Comment
                       </button>
-                      {/* <p><delete /> {comment.votes}</p> */}
-                      </div>
+                      </div>}
                      </li>)
                    
   })} </section>

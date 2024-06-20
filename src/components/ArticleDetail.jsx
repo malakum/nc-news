@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const ArticleDetail = ( ) => { 
     const [article, setArticle] = useState([]);
-    const [err, setErr] = useState(false);
+    const [error, setError] = useState(null);
     const [open, setOpen] = useState(false);
   
     const [isLoading, setIsLoading] = useState(true);
@@ -27,6 +27,7 @@ const ArticleDetail = ( ) => {
             })
             .catch((err) => {
               setIsLoading(false);
+              setError(err);
             })
     }, [article_id]);
    
@@ -60,7 +61,11 @@ const ArticleDetail = ( ) => {
        
 
     }
-
+    if (error){
+        console.log(error);
+        return <p>Error code={error.code} ,Error message={error.message}</p>;
+       
+    };
 
     if (isLoading) {
         return <p>is loading</p>
