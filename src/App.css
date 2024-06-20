@@ -120,3 +120,23 @@
   margin-left: 0.15em;
   padding: 10px;
 }
+
+.articles_header {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.articles_header_sortdiv {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 15px;
+}
+
+.articles_header_sortdiv select{
+  padding:5px;
+  width: 150px;
+  font-size: 15px;
+}
