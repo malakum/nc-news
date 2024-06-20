@@ -9,6 +9,13 @@ export const getTopics = () => {
         return res.data.topics;
     })
 }
+
+export const getUsers = () => {
+    return newsApi.get("/users").then(res => {
+        return res.data.users;
+    })
+}
+
 export const getArticles = (topic ,sortby ) => {
     return newsApi.get(`/articles`, { params: { topic: topic , sort_by: sortby} }).then(res => {
               return res.data;
