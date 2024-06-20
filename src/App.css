@@ -41,6 +41,20 @@
   color: #888;
 }
 
+.topics_maindiv {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1em;
+  background-color: #61a5c2;
+  margin-top: 60px;
+  width :970px;
+}
+
+.topics_maindiv_link {
+  text-decoration: none;
+  color: black;
+}
+
 .articles {
   border : 1px solid black;
   background-color: aquamarine;
