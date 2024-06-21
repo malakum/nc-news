@@ -25,12 +25,13 @@ const Articles = () => {
               
             })
             .catch((err) => {
-                     setError(err);
+           //     console.log(err);
+                     setError(err.response.data);
             })
     }, [topic,sortby]);
 
     if (error){
-        return <p>Error Code={error.code} ,  Error Message={error.message}</p>;
+        return <p>  Error Message={error.msg}</p>;
     };
     if (isLoading) {
         return <p>is loading</p>
