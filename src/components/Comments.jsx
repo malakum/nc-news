@@ -9,7 +9,7 @@ import { UserContext } from "../contexts/User";
 const Comments = (props) =>{
     const [comments, setComments] = useState([]);
     const [input, setInput] = useState('');
-    const [status, setStatusBase] = React.useState("");
+    const [status, setStatusBase] = useState("");
     const [error, setError] = useState(null);
     const { loggedInUser, isLoggedIn } = useContext(UserContext);
  
@@ -17,7 +17,7 @@ const Comments = (props) =>{
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         getComments(props.article_id).then((res) => {
-         //    console.log(res.rows, '<<Comments')
+    
             setComments(res.rows);
             setIsLoading(false);
         });
@@ -32,10 +32,16 @@ const Comments = (props) =>{
         if (input.length === 0) {
             alert("Nothing to post here! Please type your comment");
             console.log("Nothing to post here! Please type your comment");
-           // setStatusBase({ msg: "Nothing to post here! Please type your comment", key: Math.random() });
+     
         } else {
             const newComment = {};
-            newComment['author'] =  'happyamy2016';
+            if (!loggedInUser.username){
+                newComment['author'] =  'happyamy2016';  
+            }
+            else {
+            newComment['author'] = loggedInUser.username;
+        }
+   
             newComment['body'] = input;
           
             postComment(props.article_id, newComment).then((res) => {
@@ -55,11 +61,10 @@ const Comments = (props) =>{
 
             })
                 .catch((err) => {
-                    alert(err)
-                    setInput('');
-                    console.log(err);
-                    setError(err);
-                    setStatusBase({ msg: { err }, key: Math.random() });
+                        setInput('');
+                  
+                        setError(err);
+              
                 })
         }
     }
@@ -80,10 +85,8 @@ const Comments = (props) =>{
                 })
             })
             .catch((err) => {
-                alert(err);
-                setError(err);
-              //  setStatusBase({ msg: { err }, key: Math.random() });
-            })
+                    setError(err);
+                })
     }
     if (error){
         return <p>Error Code={error.code} ,  Error Message={error.message}</p>;

@@ -6,9 +6,6 @@ import Comments from "./Comments.jsx";
 
 
 
-import { Link } from "react-router-dom";
-
-
 const ArticleDetail = ( ) => { 
     const [article, setArticle] = useState([]);
     const [error, setError] = useState(null);
@@ -27,7 +24,7 @@ const ArticleDetail = ( ) => {
             })
             .catch((err) => {
               setIsLoading(false);
-              setError(err);
+                setError(err.response.data);
             })
     }, [article_id]);
    
@@ -49,8 +46,7 @@ const ArticleDetail = ( ) => {
                  //   console.log(res,'<<<<vote updated ')
                 })
                 .catch((err) => {
-                    alert(err);
-                   console.log(err);
+                    console.log(err);
               
                     setArticle((currArticle) => {
                         const updatedArticle = { ...currArticle };
@@ -62,8 +58,7 @@ const ArticleDetail = ( ) => {
 
     }
     if (error){
-        console.log(error);
-        return <p>Error code={error.code} ,Error message={error.message}</p>;
+           return <p>{error.msg} </p>;
        
     };
 
@@ -89,7 +84,7 @@ const ArticleDetail = ( ) => {
                         <button onClick={() => { voteHandler(-1) }} className="votebutton" >Down
                         
                          </button >
-                        {/* {`(${article.votes})`} */}
+                     
                     </div>
                                     <p> Comments count:{article.comment_count}</p>
                                     
