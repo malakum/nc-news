@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getArticles } from "../api.js";
 import  ArticleCard  from './ArticleCard.jsx';
 import { useSearchParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
-
-import { Link } from "react-router-dom";
 
 
 const Articles = () => { 
@@ -14,25 +11,21 @@ const Articles = () => {
     const [isLoading, setIsLoading] = useState(true);
     let [searchParams] = useSearchParams();
     const [error,setError] = useState(null);
-
     const topic = searchParams.get('topic');
-    //console.log (topic);
-    let navigate = useNavigate();
+ 
    
 
     useEffect(() => {
       
         getArticles(topic, sortby).
             then((res) => {
-            //    console.log(res.articles.rows, '<<articles')
+    
                 setArticles(res.articles.rows);
                 setIsLoading(false);
               
             })
             .catch((err) => {
-              //  console.log(err);
-                alert(err);
-                setError(err);
+                     setError(err);
             })
     }, [topic,sortby]);
 
